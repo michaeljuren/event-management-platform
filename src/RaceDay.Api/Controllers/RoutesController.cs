@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RaceDay.Api.Authorization;
 using RaceDay.Api.Data;
 using RaceDay.Api.Dtos;
-using Route = RaceDay.Api.Models.Route;
+using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Controllers;
 
@@ -49,7 +49,7 @@ public class RoutesController(RaceDayDbContext db) : ApiControllerBase
             return NotFoundProblem($"Venue {venueId} not found.");
         }
 
-        var route = new Route { VenueId = venueId };
+        var route = new RaceRoute { VenueId = venueId };
         Apply(route, request);
         db.Routes.Add(route);
         await db.SaveChangesAsync(ct);
@@ -136,7 +136,7 @@ public class RoutesController(RaceDayDbContext db) : ApiControllerBase
         return !await db.Categories.AnyAsync(c => c.RouteId == routeId && c.Event.OrganizerId != me, ct);
     }
 
-    private static void Apply(Route route, RouteRequest request)
+    private static void Apply(RaceRoute route, RouteRequest request)
     {
         route.RouteName = request.RouteName.Trim();
         route.DistanceKm = request.DistanceKm;

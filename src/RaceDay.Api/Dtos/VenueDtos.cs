@@ -40,7 +40,7 @@ public record RouteResponse(
     int RouteId, int VenueId, string RouteName, decimal DistanceKm, int? ElevationGainM,
     string? MapUrl, string? StartPointDescription, string? EndPointDescription)
 {
-    public static RouteResponse From(Route r) =>
+    public static RouteResponse From(RaceRoute r) =>
         new(r.RouteId, r.VenueId, r.RouteName, r.DistanceKm, r.ElevationGainM, r.MapUrl, r.StartPointDescription, r.EndPointDescription);
 }
 

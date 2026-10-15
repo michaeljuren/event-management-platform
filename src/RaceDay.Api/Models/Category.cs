@@ -24,7 +24,7 @@ public class Category
 
     public Event Event { get; set; } = null!;
 
-    public Route? Route { get; set; }
+    public RaceRoute? Route { get; set; }
 
     public ICollection<Entry> Entries { get; set; } = new List<Entry>();
 }

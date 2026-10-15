@@ -17,7 +17,7 @@ public class RaceDayDbContext(DbContextOptions<RaceDayDbContext> options) : DbCo
     public DbSet<User> Users => Set<User>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<Venue> Venues => Set<Venue>();
-    public DbSet<Route> Routes => Set<Route>();
+    public DbSet<RaceRoute> Routes => Set<RaceRoute>();
     public DbSet<Event> Events => Set<Event>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Entry> Entries => Set<Entry>();

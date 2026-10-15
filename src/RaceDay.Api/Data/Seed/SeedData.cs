@@ -54,11 +54,11 @@ public static class SeedData
             new Venue { VenueId = 2, VenueName = "Zwartkops Raceway Grounds", AddressLine = "Rabie Ring Rd", City = "Centurion", Province = "Gauteng", PostalCode = "0157", Latitude = -25.845400m, Longitude = 28.187900m },
             new Venue { VenueId = 3, VenueName = "Durban Beachfront Promenade", AddressLine = "Snell Parade", City = "Durban", Province = "KwaZulu-Natal", PostalCode = "4001", Latitude = -29.837500m, Longitude = 31.043600m });
 
-        modelBuilder.Entity<Route>().HasData(
-            new Route { RouteId = 1, VenueId = 1, RouteName = "Green Point Loop 10km", DistanceKm = 10.00m, ElevationGainM = 45, MapUrl = "https://maps.example.com/routes/green-point-10k", StartPointDescription = "Green Point Park main gate", EndPointDescription = "Green Point Park main gate" },
-            new Route { RouteId = 2, VenueId = 1, RouteName = "Green Point Double Loop 21.1km", DistanceKm = 21.10m, ElevationGainM = 90, MapUrl = "https://maps.example.com/routes/green-point-21k", StartPointDescription = "Green Point Park main gate", EndPointDescription = "Green Point Park main gate" },
-            new Route { RouteId = 3, VenueId = 2, RouteName = "Centurion Cycle Circuit 40km", DistanceKm = 40.00m, ElevationGainM = 220, MapUrl = "https://maps.example.com/routes/centurion-40k", StartPointDescription = "Zwartkops Raceway pit lane", EndPointDescription = "Zwartkops Raceway pit lane" },
-            new Route { RouteId = 4, VenueId = 3, RouteName = "Durban Beachfront 5km Route", DistanceKm = 5.00m, ElevationGainM = 10, MapUrl = "https://maps.example.com/routes/durban-beach-5k", StartPointDescription = "uShaka Marine World", EndPointDescription = "Suncoast Casino" });
+        modelBuilder.Entity<RaceRoute>().HasData(
+            new RaceRoute { RouteId = 1, VenueId = 1, RouteName = "Green Point Loop 10km", DistanceKm = 10.00m, ElevationGainM = 45, MapUrl = "https://maps.example.com/routes/green-point-10k", StartPointDescription = "Green Point Park main gate", EndPointDescription = "Green Point Park main gate" },
+            new RaceRoute { RouteId = 2, VenueId = 1, RouteName = "Green Point Double Loop 21.1km", DistanceKm = 21.10m, ElevationGainM = 90, MapUrl = "https://maps.example.com/routes/green-point-21k", StartPointDescription = "Green Point Park main gate", EndPointDescription = "Green Point Park main gate" },
+            new RaceRoute { RouteId = 3, VenueId = 2, RouteName = "Centurion Cycle Circuit 40km", DistanceKm = 40.00m, ElevationGainM = 220, MapUrl = "https://maps.example.com/routes/centurion-40k", StartPointDescription = "Zwartkops Raceway pit lane", EndPointDescription = "Zwartkops Raceway pit lane" },
+            new RaceRoute { RouteId = 4, VenueId = 3, RouteName = "Durban Beachfront 5km Route", DistanceKm = 5.00m, ElevationGainM = 10, MapUrl = "https://maps.example.com/routes/durban-beach-5k", StartPointDescription = "uShaka Marine World", EndPointDescription = "Suncoast Casino" });
 
         modelBuilder.Entity<Event>().HasData(
             new Event

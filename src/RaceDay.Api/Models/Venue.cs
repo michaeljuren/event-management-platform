@@ -19,7 +19,7 @@ public class Venue
 
     public decimal? Longitude { get; set; }
 
-    public ICollection<Route> Routes { get; set; } = new List<Route>();
+    public ICollection<RaceRoute> Routes { get; set; } = new List<RaceRoute>();
 
     public ICollection<Event> Events { get; set; } = new List<Event>();
 }

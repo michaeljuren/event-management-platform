@@ -1,7 +1,8 @@
 namespace RaceDay.Api.Models;
 
-/// <summary>A specific course at a venue that one or more categories can be run or ridden on.</summary>
-public class Route
+/// <summary>Maps to the Routes table. Named RaceRoute to avoid clashing with ASP.NET Core's [Route] attribute.
+/// A specific course at a venue that one or more categories can be run or ridden on.</summary>
+public class RaceRoute
 {
     public int RouteId { get; set; }
 

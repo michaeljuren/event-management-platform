@@ -4,9 +4,9 @@ using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Data.Configurations;
 
-public class RouteConfiguration : IEntityTypeConfiguration<Route>
+public class RouteConfiguration : IEntityTypeConfiguration<RaceRoute>
 {
-    public void Configure(EntityTypeBuilder<Route> builder)
+    public void Configure(EntityTypeBuilder<RaceRoute> builder)
     {
         builder.ToTable("Routes", t =>
         {
