@@ -28,6 +28,11 @@ jobs:
       - name: Build
         run: dotnet build RaceDay.sln --no-restore --configuration Release
 
+      - name: Verify EF Core migrations match the model
+        run: |
+          dotnet tool install --global dotnet-ef --version 10.0.13
+          dotnet ef migrations has-pending-model-changes --project src/RaceDay.Api --no-build --configuration Release
+
       - name: Run unit tests
         run: >
           dotnet test RaceDay.sln --no-build --configuration Release --verbosity normal
