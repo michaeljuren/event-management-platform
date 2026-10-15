@@ -893,6 +893,48 @@ namespace RaceDay.Api.Migrations
                         });
                 });
 
+            modelBuilder.Entity("RaceDay.Api.Models.UserSession", b =>
+                {
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()", "DF_UserSessions_CreatedAt");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastRefreshedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()", "DF_UserSessions_LastRefreshedAt");
+
+                    b.Property<string>("RefreshTokenHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SessionId")
+                        .HasName("PK_UserSessions");
+
+                    b.HasIndex("RefreshTokenHash")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_UserSessions_RefreshTokenHash");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_UserSessions_UserId");
+
+                    b.ToTable("UserSessions", (string)null);
+                });
+
             modelBuilder.Entity("RaceDay.Api.Models.Venue", b =>
                 {
                     b.Property<int>("VenueId")
@@ -1102,6 +1144,18 @@ namespace RaceDay.Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RaceDay.Api.Models.UserSession", b =>
+                {
+                    b.HasOne("RaceDay.Api.Models.User", "User")
+                        .WithMany("Sessions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_UserSessions_Users");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RaceDay.Api.Models.Category", b =>
                 {
                     b.Navigation("Entries");
@@ -1139,6 +1193,8 @@ namespace RaceDay.Api.Migrations
                     b.Navigation("OrganizedEvents");
 
                     b.Navigation("RecordedResults");
+
+                    b.Navigation("Sessions");
 
                     b.Navigation("UserRoles");
                 });
