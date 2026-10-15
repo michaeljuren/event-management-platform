@@ -202,6 +202,6 @@ public class EventManagementTests(RaceDayApiFactory factory) : IClassFixture<Rac
 
         var evt = await response.ReadAsync<EventDetailResponse>();
         Assert.Equal(2, evt.Categories.Count);
-        Assert.Equal([10.00m, 21.10m], evt.DistancesKm);
+        Assert.Equal(new[] { 10.00m, 21.10m }, evt.DistancesKm);
     }
 }
