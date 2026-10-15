@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RaceDay.Api.Authorization;
+using RaceDay.Api.Models;
 using RaceDay.Api.Services;
 
 namespace RaceDay.Api.Controllers;
@@ -12,6 +13,14 @@ public abstract class ApiControllerBase : ControllerBase
     protected int CurrentUserId => User.GetUserId();
 
     protected bool IsAdmin => User.IsInRole(RoleNames.Admin);
+
+    protected bool IsAuthenticated => User.Identity?.IsAuthenticated == true;
+
+    /// <summary>The event's own organizer, or an admin, may manage it and everything under it.</summary>
+    protected bool CanManage(Event evt) => IsAuthenticated && (IsAdmin || evt.OrganizerId == CurrentUserId);
+
+    /// <summary>Draft events are only visible to the people who can manage them.</summary>
+    protected bool CanView(Event evt) => evt.Status != EventStatus.Draft || CanManage(evt);
 
     protected ObjectResult NotFoundProblem(string detail) =>
         Problem(statusCode: StatusCodes.Status404NotFound, title: "Not found", detail: detail);
