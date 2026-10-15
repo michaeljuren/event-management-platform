@@ -24,7 +24,7 @@ public class AuthTests(RaceDayApiFactory factory) : IClassFixture<RaceDayApiFact
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         var user = await response.ReadAsync<UserSummaryResponse>();
         Assert.Equal(email, user.Email);
-        Assert.Equal([expectedRole], user.Roles);
+        Assert.Equal(expectedRole, Assert.Single(user.Roles));
     }
 
     [Fact]
