@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using RaceDay.Api.Data.Seed;
 using RaceDay.Api.Models;
 
 namespace RaceDay.Api.Data;
@@ -33,5 +34,6 @@ public class RaceDayDbContext(DbContextOptions<RaceDayDbContext> options) : DbCo
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(RaceDayDbContext).Assembly);
+        SeedData.Apply(modelBuilder);
     }
 }
