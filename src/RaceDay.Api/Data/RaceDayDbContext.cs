@@ -22,6 +22,7 @@ public class RaceDayDbContext(DbContextOptions<RaceDayDbContext> options) : DbCo
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Entry> Entries => Set<Entry>();
     public DbSet<Result> Results => Set<Result>();
+    public DbSet<UserSession> UserSessions => Set<UserSession>();
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {

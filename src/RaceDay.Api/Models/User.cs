@@ -40,4 +40,6 @@ public class User
     public ICollection<Entry> Entries { get; set; } = new List<Entry>();
 
     public ICollection<Result> RecordedResults { get; set; } = new List<Result>();
+
+    public ICollection<UserSession> Sessions { get; set; } = new List<UserSession>();
 }
