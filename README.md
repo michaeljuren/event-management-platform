@@ -82,7 +82,9 @@ The entity configurations in `src/RaceDay.Api/Data/Configurations` reproduce
 `database/RaceDay-Schema.sql`: table and column names, `nvarchar` lengths, `date` / `time(0)` /
 `time(3)` / `datetime2` / `decimal(p,s)` types, named `PK_` / `FK_` / `UQ_` / `CHK_` / `DF_`
 constraints, the same `ON DELETE` behaviours and the same `IX_` indexes. The script's seed rows are
-applied with `HasData`, using identical identity values.
+applied with `HasData`, using identical identity values. The migrations in
+`src/RaceDay.Api/Migrations` were generated with `dotnet ef`: `InitialCreate` (the ten scripted
+tables) and `AddUserSessions`.
 
 Two deliberate notes:
 
@@ -152,8 +154,10 @@ dotnet test RaceDay.sln
 
 #### CI/CD
 
-`.github/workflows/workflow.yml` restores, builds and runs all tests on every push to any branch,
-on pull requests into `main`, and on demand.
+`.github/workflows/workflow.yml` runs on every push to any branch, on pull requests into `main`,
+and on demand. It restores and builds the solution, fails if the EF Core migrations have drifted
+from the entity model (`dotnet ef migrations has-pending-model-changes`), runs the full test suite
+(159 tests) and uploads the results as a build artifact.
 
 ## Repository structure
 
