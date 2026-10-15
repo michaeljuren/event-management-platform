@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using RaceDay.Api.Authorization;
 using RaceDay.Api.Data;
 using RaceDay.Api.Models;
@@ -59,6 +60,37 @@ builder.Services.AddAuthorizationBuilder()
 
 builder.Services.AddControllers();
 
+// ---------- Swagger / OpenAPI ----------
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "RaceDay API",
+        Version = "v1",
+        Description = "Event management API for South African road running, walking and cycling events. "
+            + "Use POST /api/auth/login, then click Authorize and paste the accessToken."
+    });
+
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, $"{typeof(Program).Assembly.GetName().Name}.xml");
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Description = "Paste the accessToken returned by /api/auth/login (without the 'Bearer ' prefix)."
+    });
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+    });
+});
+
 var app = builder.Build();
 
 if (app.Configuration.GetValue<bool>("Database:ApplyMigrationsOnStartup"))
@@ -69,6 +101,16 @@ if (app.Configuration.GetValue<bool>("Database:ApplyMigrationsOnStartup"))
     {
         db.Database.Migrate();
     }
+}
+
+if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("Swagger:Enabled"))
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "RaceDay API v1");
+        options.DocumentTitle = "RaceDay API";
+    });
 }
 
 app.UseHttpsRedirection();
