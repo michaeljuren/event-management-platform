@@ -159,6 +159,12 @@ and on demand. It restores and builds the solution, fails if the EF Core migrati
 from the entity model (`dotnet ef migrations has-pending-model-changes`), runs the full test suite
 (159 tests) and uploads the results as a build artifact.
 
+Watch the [RaceDay project walkthrough on YouTube](https://youtu.be/LIaOX_tK4VQ).
+
+Recent GitHub Actions workflow runs:
+
+![GitHub Actions workflow runs](images/github-actions-workflow-runs.png)
+
 ## Repository structure
 
 ```
@@ -178,7 +184,7 @@ tests/RaceDay.Tests/       xUnit integration and unit tests
 ## AI Usage Disclosure
 
 - I used Claude to assist with the creation of the database schema. The AI provided suggestions for table structures, relationships, which I then reviewed and modified to fit the specific requirements of the RaceDay platform. It was also used to generate the database seed data, and formatting the README file.
-- Part 2: I used Claude (Claude Code) to help scaffold the Web API, the EF Core entity configurations, the authentication and session design, the controllers, the unit tests and the GitHub Actions workflow, which I then reviewed and tested.
+- Part 2: I used Claude to help scaffold the Web API, the EF Core entity configurations,the controllers, the unit tests and the GitHub Actions workflow, which I then reviewed and tested.
 
 ## Tech stack
 
